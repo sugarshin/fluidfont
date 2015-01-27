@@ -8,21 +8,25 @@
 
   ResizeFont = (function() {
     "use strict";
-    ResizeFont.prototype._defaults = {
-      baseWidth: 640
-    };
+    var _resize;
 
-    ResizeFont.prototype._resize = function() {
+    _resize = function() {
       var size, width;
       width = window.innerWidth;
       size = "" + (width / this.opts.baseWidth * 100) + "%";
       return this.$body.css('font-size', size);
     };
 
+    ResizeFont.prototype._defaults = {
+      baseWidth: 640
+    };
+
+    ResizeFont.prototype.resize = _resize;
+
     function ResizeFont(opts) {
       this.opts = $.extend({}, this._defaults, opts);
       this.$body = $('body');
-      this._resize();
+      _resize.call(this);
       this.addEvent();
     }
 

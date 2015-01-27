@@ -4,18 +4,20 @@ TD = require 'throttle-debounce'
 class ResizeFont
   "use strict"
 
-  _defaults:
-    baseWidth: 640
-
-  _resize: ->
+  _resize = ->
     width = window.innerWidth
     size = "#{width / @opts.baseWidth * 100}%"
     @$body.css 'font-size', size
 
+  _defaults:
+    baseWidth: 640
+
+  resize: _resize
+
   constructor: (opts) ->
     @opts = $.extend {}, @_defaults, opts
     @$body = $('body')
-    @_resize()
+    _resize.call @
     @addEvent()
 
   debounceResize: TD.debounce 300, _resize
