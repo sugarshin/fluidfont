@@ -1,1 +1,5 @@
 # ResizeFont
+
+```shell
+npm start
+```

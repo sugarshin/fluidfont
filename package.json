@@ -1,7 +1,14 @@
 {
   "name": "resizefont.js",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "ResizeFont",
+  "main": "resizefont.js",
+  "scripts": {
+    "start": "node ./node_modules/.bin/coffee -c -w resizefont.coffee"
+  },
   "author": "sugarshin",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "coffee-script": "^1.8.0"
+  }
 }
