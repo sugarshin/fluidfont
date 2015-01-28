@@ -1,29 +1,28 @@
 $ = require 'jquery'
-TD = require 'throttle-debounce'
+td = require 'throttle-debounce'
 
 class ResizeFont
   "use strict"
 
-  _resize = ->
+  _defaults:
+    baseWidth: 640
+    delay: 300
+    type: 'debounce'# or throttle
+
+  resize: ->
     width = window.innerWidth
     size = "#{width / @opts.baseWidth * 100}%"
     @$body.css 'font-size', size
-
-  _defaults:
-    baseWidth: 640
-
-  resize: _resize
+    return this
 
   constructor: (opts) ->
     @opts = $.extend {}, @_defaults, opts
     @$body = $('body')
-    _resize.call @
+    @resize()
     @addEvent()
 
-  debounceResize: TD.debounce 300, _resize
-
   addEvent: ->
-    $(window).on 'resize.resizefont', => @debounceResize()
+    $(window).on 'resize.resizefont', td[@opts.type] @opts.delay, => @resize()
     return this
 
   rmEvent: ->
