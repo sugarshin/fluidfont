@@ -5,6 +5,15 @@ Fluid font
 ```shell
 npm i -S sugarshin/fluidfont
 ```
+
+## Usage
+
+```coffeescript
+FluidFont = require 'fluidfont'
+
+new FluidFont
+```
+
 ## Contributing
 
 [CoffeeScript](//coffeescript.org/)
