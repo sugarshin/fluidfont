@@ -1,37 +1,41 @@
-$ = require 'jquery'
-td = require 'throttle-debounce'
-
-class ResizeFont
+do (factory = ($, td) ->
   "use strict"
 
-  _defaults:
-    baseWidth: 640
-    delay: 300
-    type: 'debounce'# or throttle
+  if td is undefined then td = $
 
-  resize: ->
-    width = window.innerWidth
-    size = "#{width / @opts.baseWidth * 100}%"
-    @$body.css 'font-size', size
-    return this
+  class ResizeFont
+    "use strict"
 
-  constructor: (opts) ->
-    @opts = $.extend {}, @_defaults, opts
-    @$body = $('body')
-    @resize()
-    @addEvent()
+    _defaults:
+      baseWidth: 640
+      delay: 300
+      type: 'debounce'# or throttle
 
-  addEvent: ->
-    $(window).on 'resize.resizefont', td[@opts.type] @opts.delay, => @resize()
-    return this
+    resize: ->
+      width = window.innerWidth
+      size = "#{width / @opts.baseWidth * 100}%"
+      @$body.css 'font-size', size
+      return this
 
-  rmEvent: ->
-    $(window).off 'resize.resizefont'
-    return this
+    constructor: (opts) ->
+      @opts = $.extend {}, @_defaults, opts
+      @$body = $('body')
+      @resize()
+      @addEvent()
 
-if typeof define is 'function' and define.amd
-  define -> ResizeFont
-else if typeof module isnt 'undefined' and module.exports
-  module.exports = ResizeFont
-else
-  window.ResizeFont or= ResizeFont
+    addEvent: ->
+      $(window).on 'resize.resizefont', td[@opts.type] @opts.delay, => @resize()
+      return this
+
+    rmEvent: ->
+      $(window).off 'resize.resizefont'
+      return this
+
+) (if typeof window isnt undefined then window else this), ->
+  if typeof define is 'function' and define.amd
+    define factory require('jquery'), require('throttle-debounce')
+  else if typeof module isnt 'undefined' and module.exports
+    module.exports = factory require('jquery'), require('throttle-debounce')
+  else
+    window.ResizeFont or= factory window.jQuery
+  return
