@@ -1,15 +1,24 @@
 {
-  "name": "resizefont.js",
-  "version": "0.0.5",
-  "description": "ResizeFont",
-  "main": "resizefont.js",
+  "name": "fluidfont",
+  "version": "0.1.0",
+  "description": "FluidFont",
+  "repository": "git@github.com:sugarshin/fluidfont.git",
+  "main": "fluidfont.js",
   "scripts": {
-    "start": "node ./node_modules/.bin/coffee -c -w resizefont.coffee"
+    "start": "node ./node_modules/.bin/coffee -c -w fluidfont.coffee",
+    "test": "node ./node_modules/.bin/phantomjs ./node_modules/mocha-phantomjs/lib/mocha-phantomjs.coffee test/index.html"
+  },
+  "engines": {
+    "node": "0.10.x"
   },
   "author": "sugarshin",
   "license": "MIT",
   "devDependencies": {
-    "coffee-script": "^1.9.0"
+    "browserify-shim": "^3.8.2",
+    "coffee-script": "^1.9.0",
+    "mocha": "^2.1.0",
+    "mocha-phantomjs": "^3.5.3",
+    "phantomjs": "^1.9.15"
   },
   "dependencies": {
     "jquery": "^2.1.3",

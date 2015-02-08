@@ -1,18 +1,17 @@
-do (factory = ($, td) ->
+do (root = this, factory = ($, td) ->
   "use strict"
 
   if td is undefined then td = $
 
-  class ResizeFont
-    "use strict"
+  class FluidFont
 
     _defaults:
       baseWidth: 640
+      baseSize: '1em'
       delay: 300
-      type: 'debounce'# or throttle
+      type: 'debounce'# or 'throttle'
 
-    resize: ->
-      width = window.innerWidth
+    resize: (width) ->
       size = "#{width / @opts.baseWidth * 100}%"
       @$body.css 'font-size', size
       return this
@@ -20,22 +19,24 @@ do (factory = ($, td) ->
     constructor: (opts) ->
       @opts = $.extend {}, @_defaults, opts
       @$body = $('body')
+
+      $('html').css 'font-size', @opts.baseSize
       @resize()
       @addEvent()
 
     addEvent: ->
-      $(window).on 'resize.resizefont', td[@opts.type] @opts.delay, => @resize()
+      $(window).on 'resize.fluidfont', td[@opts.type] @opts.delay, => @resize window.innerWidth
       return this
 
     rmEvent: ->
-      $(window).off 'resize.resizefont'
+      $(window).off 'resize.fluidfont'
       return this
 
-) (if typeof window isnt undefined then window else this), ->
+) ->
   if typeof define is 'function' and define.amd
     define factory require('jquery'), require('throttle-debounce')
   else if typeof module isnt 'undefined' and module.exports
     module.exports = factory require('jquery'), require('throttle-debounce')
   else
-    window.ResizeFont or= factory window.jQuery
+    root.FluidFont or= factory root.jQuery
   return
