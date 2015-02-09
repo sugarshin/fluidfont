@@ -11,11 +11,6 @@ do (root = this, factory = ($, td) ->
       delay: 300
       type: 'debounce'# or 'throttle'
 
-    resize: (width) ->
-      size = "#{width / @opts.baseWidth * 100}%"
-      @$body.css 'font-size', size
-      return this
-
     constructor: (opts) ->
       @opts = $.extend {}, @_defaults, opts
       @$body = $('body')
@@ -24,8 +19,14 @@ do (root = this, factory = ($, td) ->
       @resize()
       @addEvent()
 
+    resize: (width) ->
+      size = "#{width / @opts.baseWidth * 100}%"
+      @$body.css 'font-size', size
+      return this
+
     addEvent: ->
-      $(window).on 'resize.fluidfont', td[@opts.type] @opts.delay, => @resize window.innerWidth
+      $(window).on 'resize.fluidfont', td[@opts.type] @opts.delay, =>
+        @resize window.innerWidth
       return this
 
     rmEvent: ->
