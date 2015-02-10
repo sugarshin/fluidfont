@@ -14,39 +14,48 @@
     td = $;
   }
   return FluidFont = (function() {
+    var _$window;
+
+    _$window = $(window);
+
     FluidFont.prototype._defaults = {
       baseWidth: 640,
       baseSize: '1em',
       delay: 300,
-      type: 'debounce'
+      type: 'debounce',
+      target: 'body'
+    };
+
+    FluidFont.prototype._configure = function(opts) {
+      this.opts = $.extend({}, this._defaults, opts);
+      return this.$el = $(this.opts.target);
     };
 
     function FluidFont(opts) {
-      this.opts = $.extend({}, this._defaults, opts);
-      this.$body = $('body');
+      this._configure(opts);
       $('html').css('font-size', this.opts.baseSize);
-      this.resize();
+      this.resize(_$window.outerWidth());
       this.addEvent();
     }
 
     FluidFont.prototype.resize = function(width) {
       var size;
       size = (width / this.opts.baseWidth * 100) + "%";
-      this.$body.css('font-size', size);
+      this.$el.css('font-size', size);
       return this;
     };
 
     FluidFont.prototype.addEvent = function() {
-      $(window).on('resize.fluidfont', td[this.opts.type](this.opts.delay, (function(_this) {
+      _$window.on('resize.fluidfont', td[this.opts.type](this.opts.delay, (function(_this) {
         return function() {
-          return _this.resize(window.innerWidth);
+          return _this.resize(_$window.outerWidth());
         };
       })(this)));
       return this;
     };
 
     FluidFont.prototype.rmEvent = function() {
-      $(window).off('resize.fluidfont');
+      _$window.off('resize.fluidfont');
       return this;
     };
 
