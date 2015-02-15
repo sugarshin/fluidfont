@@ -1,4 +1,6 @@
-# FluidFont [![Build Status](https://travis-ci.org/sugarshin/fluidfont.svg?branch=master)](https://travis-ci.org/sugarshin/fluidfont)
+# FluidFont
+
+[![Build Status](https://travis-ci.org/sugarshin/fluidfont.svg?branch=master)](https://travis-ci.org/sugarshin/fluidfont)
 
 Fluid font
 
@@ -12,6 +14,17 @@ npm i -S sugarshin/fluidfont
 FluidFont = require 'fluidfont'
 
 new FluidFont
+```
+
+or
+
+```html
+<script src="jquery.js"></script>
+<script src="throttle-debounce.js"></script>
+<script src="fluidfont.js"></script>
+<script>
+  new FluidFont
+</script>
 ```
 
 ## Contributing

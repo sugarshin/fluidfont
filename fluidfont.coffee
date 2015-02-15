@@ -41,9 +41,7 @@ do (root = this, factory = ($, td) ->
       return this
 
 ) ->
-  if typeof define is 'function' and define.amd
-    define ['$', 'td'], factory
-  else if typeof exports is 'object'
+  if typeof module is 'object' and typeof module.exports is 'object'
     module.exports = factory require('jquery'), require('throttle-debounce')
   else
     root.FluidFont or= factory root.jQuery

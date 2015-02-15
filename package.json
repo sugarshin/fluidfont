@@ -1,12 +1,12 @@
 {
   "name": "fluidfont",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "FluidFont",
   "repository": "git@github.com:sugarshin/fluidfont.git",
   "main": "fluidfont.js",
   "scripts": {
     "start": "node ./node_modules/.bin/coffee -cbw fluidfont.coffee",
-    "pretest": "node ./node_modules/.bin/browserify -t coffeeify --extension=\".coffee\" test/test.coffee -o test/test.js",
+    "pretest": "node ./node_modules/.bin/browserify -t coffeeify test/test.coffee -o test/test.js",
     "test": "node ./node_modules/.bin/phantomjs ./node_modules/mocha-phantomjs/lib/mocha-phantomjs.coffee test/index.html"
   },
   "engines": {
