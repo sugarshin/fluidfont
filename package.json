@@ -5,9 +5,10 @@
   "repository": "git@github.com:sugarshin/fluidfont.git",
   "main": "fluidfont.js",
   "scripts": {
-    "start": "node ./node_modules/.bin/coffee -cbw fluidfont.coffee",
-    "pretest": "node ./node_modules/.bin/browserify -t coffeeify test/test.coffee -o test/test.js",
-    "test": "node ./node_modules/.bin/phantomjs ./node_modules/mocha-phantomjs/lib/mocha-phantomjs.coffee test/index.html"
+    "start": "coffee -cbw fluidfont.coffee",
+    "pretest": "browserify -t coffeeify test/test.coffee -o test/test.js",
+    "test": "mocha-phantomjs -p node_modules/.bin/phantomjs test/index.html",
+    "build": "uglifyjs fluidfont.js -cm --comments '/\\/*!/' -o fluidfont.min.js"
   },
   "engines": {
     "node": "0.10.x"
@@ -21,7 +22,8 @@
     "mocha": "^2.1.0",
     "mocha-phantomjs": "^3.5.3",
     "phantomjs": "^1.9.15",
-    "power-assert": "^0.10.1"
+    "power-assert": "^0.10.1",
+    "uglify-js": "^2.4.16"
   },
   "dependencies": {
     "browserify-shim": "^3.8.2",

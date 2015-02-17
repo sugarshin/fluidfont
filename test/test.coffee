@@ -1,5 +1,16 @@
 assert = require 'power-assert'
 
+$ = require 'jquery'
+FluidFont = require '../fluidfont'
+
+mocha.setup 'bdd'
+
+window.onload = ->
+  if window.mochaPhantomJS
+    mochaPhantomJS.run()
+  else
+    mocha.run()
+
 # .reszie()
 describe '.reszie()', ->
   it 'フォントがリサイズされること', ->

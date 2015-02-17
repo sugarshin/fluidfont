@@ -1,3 +1,9 @@
+###!
+ * @license fluidfont
+ * (c) sugarshin
+ * License: MIT
+###
+
 do (root = this, factory = ($, td) ->
   "use strict"
 

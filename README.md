@@ -1,11 +1,11 @@
-# FluidFont
+# fluidfont
 
-[![Build Status](https://travis-ci.org/sugarshin/fluidfont.svg?branch=master)](https://travis-ci.org/sugarshin/fluidfont)
+[![Build Status](https://travis-ci.org/sugarshin/fluidfont.svg?branch=master)](https://travis-ci.org/sugarshin/fluidfont) [![Coverage Status](https://coveralls.io/repos/sugarshin/fluidfont/badge.svg)](https://coveralls.io/r/sugarshin/fluidfont) [![GitHub version](https://badge.fury.io/gh/sugarshin%2Ffluidfont.svg)](http://badge.fury.io/gh/sugarshin%2Ffluidfont) [![License](http://img.shields.io/:license-mit-blue.svg)](http://sugarshin.mit-license.org/)
 
-Fluid font
+FluidFont
 
 ```shell
-npm i -S sugarshin/fluidfont
+npm i sugarshin/fluidfont
 ```
 
 ## Usage
@@ -41,6 +41,6 @@ npm test
 
 ## License
 
-MIT
+[MIT](http://sugarshin.mit-license.org/)
 
 © sugarshin
