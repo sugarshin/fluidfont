@@ -24,6 +24,23 @@
 
       _$window = $(window);
 
+      FluidFont.prototype._getRandomString = (function() {
+        var chars;
+        chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghiklmnopqrstuvwxyz';
+        return function(length) {
+          var i, randomNumber, string, _i;
+          if (length == null) {
+            length = 32;
+          }
+          string = '';
+          for (i = _i = 0; 0 <= length ? _i < length : _i > length; i = 0 <= length ? ++_i : --_i) {
+            randomNumber = Math.floor(Math.random() * chars.length);
+            string += chars.substring(randomNumber, randomNumber + 1);
+          }
+          return string;
+        };
+      })();
+
       FluidFont.prototype._defaults = {
         target: 'body',
         baseWidth: 640,
@@ -33,8 +50,14 @@
       };
 
       FluidFont.prototype._configure = function(opts) {
-        this.opts = $.extend({}, this._defaults, opts);
+        this.opts = opts || {};
+        this.opts.target = this.opts.target || this._defaults.target;
+        this.opts.baseWidth = this.opts.baseWidth || this._defaults.baseWidth;
+        this.opts.baseSize = this.opts.baseSize || this._defaults.baseSize;
+        this.opts.delay = this.opts.delay || this._defaults.delay;
+        this.opts.delayType = this.opts.delayType || this._defaults.delayType;
         this.$el = $(this.opts.target);
+        this._namespace = this._getRandomString(16) + +(new Date);
         return $('html').css('font-size', this.opts.baseSize);
       };
 
@@ -45,14 +68,12 @@
       }
 
       FluidFont.prototype.resize = function(width) {
-        var size;
-        size = (width / this.opts.baseWidth * 100) + "%";
-        this.$el.css('font-size', size);
+        this.$el.css('font-size', (width / this.opts.baseWidth * 100) + "%");
         return this;
       };
 
       FluidFont.prototype.events = function() {
-        _$window.on('resize.fluidfont', td[this.opts.delayType](this.opts.delay, (function(_this) {
+        _$window.on("resize.fluidfont:" + this._namespace, td[this.opts.delayType](this.opts.delay, (function(_this) {
           return function() {
             return _this.resize(_$window.outerWidth());
           };
@@ -63,7 +84,7 @@
       FluidFont.prototype.addEvent = FluidFont.prototype.events;
 
       FluidFont.prototype.unbind = function() {
-        _$window.off('resize.fluidfont');
+        _$window.off("resize.fluidfont:" + this._namespace);
         return this;
       };
 

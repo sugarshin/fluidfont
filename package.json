@@ -1,6 +1,6 @@
 {
   "name": "fluidfont",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "FluidFont",
   "repository": "git@github.com:sugarshin/fluidfont.git",
   "main": "fluidfont.js",
