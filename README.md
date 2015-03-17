@@ -52,6 +52,12 @@ Resize font
 
 Unbind from resize event of window
 
+## example
+
+[requirebin.com/embed?gist=6264704](requirebin.com/embed?gist=6264704)
+
+[![view on requirebin](http://requirebin.com/badge.png)](http://requirebin.com/?gist=6baa13534c3ce7bf34f2)
+
 ## Contributing
 
 [CoffeeScript](//coffeescript.org/)
