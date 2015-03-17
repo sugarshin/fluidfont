@@ -7,7 +7,7 @@ FluidFont
 small library for Responsive font size
 
 ```shell
-npm i -S fluidfont
+npm i fluidfont
 ```
 
 ## Usage
@@ -51,6 +51,14 @@ Resize font
 ### `ff.unbind()`
 
 Unbind from resize event of window
+
+*Alias:* `ff.rmEvent()`
+
+### `ff.events()`
+
+Re add resize event of window
+
+*Alias:* `ff.addEvent()`
 
 ## example
 
