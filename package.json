@@ -7,7 +7,7 @@
   "scripts": {
     "start": "coffee -cw fluidfont.coffee",
     "test": "mochify -R spec --transform coffeeify --transform espowerify ./test/test.coffee",
-    "build": "uglifyjs fluidfont.js -cm --comments '/\\/*!/' -o fluidfont.min.js",
+    "build": "coffee -c fluidfont.coffee && uglifyjs fluidfont.js -cm --comments '/\\/*!/' -o fluidfont.min.js",
     "prepublish": "npm run build"
   },
   "engines": {
