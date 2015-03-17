@@ -4,8 +4,10 @@
 
 FluidFont
 
+small library for Responsive font size
+
 ```shell
-npm i sugarshin/fluidfont
+npm i -S fluidfont
 ```
 
 ## Usage
@@ -13,7 +15,7 @@ npm i sugarshin/fluidfont
 ```coffeescript
 FluidFont = require 'fluidfont'
 
-new FluidFont
+ff = new FluidFont
 ```
 
 or
@@ -23,15 +25,40 @@ or
 <script src="throttle-debounce.js"></script>
 <script src="fluidfont.js"></script>
 <script>
-  new FluidFont
+  var ff = new FluidFont;
 </script>
 ```
+
+## Config
+
+options
+
+```coffeescript
+_defaults:
+  target: 'body'
+  baseWidth: 640
+  baseSize: '1em'
+  delay: 400
+  delayType: 'debounce'# or 'throttle'
+```
+
+## api
+
+### `ff.resize(width)`
+
+Resize font
+
+### `ff.unbind()`
+
+Unbind from resize event of window
 
 ## Contributing
 
 [CoffeeScript](//coffeescript.org/)
 
-[mocha-phantomjs](//github.com/metaskills/mocha-phantomjs)
+[Browserify](//browserify.org/)
+
+[Mocha](//mochajs.org/)
 
 [power-assert](//github.com/twada/power-assert)
 

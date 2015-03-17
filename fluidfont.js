@@ -5,65 +5,73 @@
  * (c) sugarshin
  * License: MIT
  */
-(function(root, factory) {
-  if (typeof module === 'object' && typeof module.exports === 'object') {
-    module.exports = factory(require('jquery'), require('throttle-debounce'));
-  } else {
-    root.FluidFont || (root.FluidFont = factory(root.jQuery));
-  }
-})(this, function($, td) {
+
+(function() {
   "use strict";
-  var FluidFont;
-  if (td === void 0) {
-    td = $;
-  }
-  return FluidFont = (function() {
-    var _$window;
-
-    _$window = $(window);
-
-    FluidFont.prototype._defaults = {
-      target: 'body',
-      baseWidth: 640,
-      baseSize: '1em',
-      delay: 300,
-      type: 'debounce'
-    };
-
-    FluidFont.prototype._configure = function(opts) {
-      this.opts = $.extend({}, this._defaults, opts);
-      return this.$el = $(this.opts.target);
-    };
-
-    function FluidFont(opts) {
-      this._configure(opts);
-      $('html').css('font-size', this.opts.baseSize);
-      this.resize(_$window.outerWidth());
-      this.addEvent();
+  (function(root, factory) {
+    if (typeof module === 'object' && typeof module.exports === 'object') {
+      module.exports = factory(require('jquery'), require('throttle-debounce'));
+    } else {
+      root.FluidFont || (root.FluidFont = factory(root.jQuery));
     }
+  })(this, function($, td) {
+    var FluidFont;
+    if (td === void 0) {
+      td = $;
+    }
+    return FluidFont = (function() {
+      var _$window;
 
-    FluidFont.prototype.resize = function(width) {
-      var size;
-      size = (width / this.opts.baseWidth * 100) + "%";
-      this.$el.css('font-size', size);
-      return this;
-    };
+      _$window = $(window);
 
-    FluidFont.prototype.addEvent = function() {
-      _$window.on('resize.fluidfont', td[this.opts.type](this.opts.delay, (function(_this) {
-        return function() {
-          return _this.resize(_$window.outerWidth());
-        };
-      })(this)));
-      return this;
-    };
+      FluidFont.prototype._defaults = {
+        target: 'body',
+        baseWidth: 640,
+        baseSize: '1em',
+        delay: 400,
+        delayType: 'debounce'
+      };
 
-    FluidFont.prototype.rmEvent = function() {
-      _$window.off('resize.fluidfont');
-      return this;
-    };
+      FluidFont.prototype._configure = function(opts) {
+        this.opts = $.extend({}, this._defaults, opts);
+        this.$el = $(this.opts.target);
+        return $('html').css('font-size', this.opts.baseSize);
+      };
 
-    return FluidFont;
+      function FluidFont(opts) {
+        this._configure(opts);
+        this.resize(_$window.outerWidth());
+        this.events();
+      }
 
-  })();
-});
+      FluidFont.prototype.resize = function(width) {
+        var size;
+        size = (width / this.opts.baseWidth * 100) + "%";
+        this.$el.css('font-size', size);
+        return this;
+      };
+
+      FluidFont.prototype.events = function() {
+        _$window.on('resize.fluidfont', td[this.opts.delayType](this.opts.delay, (function(_this) {
+          return function() {
+            return _this.resize(_$window.outerWidth());
+          };
+        })(this)));
+        return this;
+      };
+
+      FluidFont.prototype.addEvent = FluidFont.prototype.events;
+
+      FluidFont.prototype.unbind = function() {
+        _$window.off('resize.fluidfont');
+        return this;
+      };
+
+      FluidFont.prototype.rmEvent = FluidFont.prototype.unbind;
+
+      return FluidFont;
+
+    })();
+  });
+
+}).call(this);

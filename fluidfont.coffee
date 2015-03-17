@@ -4,8 +4,9 @@
  * License: MIT
 ###
 
+"use strict"
+
 do (root = this, factory = ($, td) ->
-  "use strict"
 
   if td is undefined then td = $
 
@@ -17,34 +18,36 @@ do (root = this, factory = ($, td) ->
       target: 'body'
       baseWidth: 640
       baseSize: '1em'
-      delay: 300
-      type: 'debounce'# or 'throttle'
+      delay: 400
+      delayType: 'debounce'# or 'throttle'
 
     _configure: (opts) ->
       @opts = $.extend {}, @_defaults, opts
       @$el = $(@opts.target)
+      $('html').css 'font-size', @opts.baseSize
 
-    # arguments => $el, opts
     constructor: (opts) ->
       @_configure opts
-
-      $('html').css 'font-size', @opts.baseSize
       @resize _$window.outerWidth()
-      @addEvent()
+      @events()
 
     resize: (width) ->
       size = "#{width / @opts.baseWidth * 100}%"
       @$el.css 'font-size', size
       return this
 
-    addEvent: ->
-      _$window.on 'resize.fluidfont', td[@opts.type] @opts.delay, =>
+    events: ->
+      _$window.on 'resize.fluidfont', td[@opts.delayType] @opts.delay, =>
         @resize _$window.outerWidth()
       return this
 
-    rmEvent: ->
+    addEvent: @::events
+
+    unbind: ->
       _$window.off 'resize.fluidfont'
       return this
+
+    rmEvent: @::unbind
 
 ) ->
   if typeof module is 'object' and typeof module.exports is 'object'
