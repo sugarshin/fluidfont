@@ -7,7 +7,6 @@
   "files": [
     "test",
     "fluidfont.js",
-    "fluidfont.min.js",
     "package.json",
     "README.md"
   ],
