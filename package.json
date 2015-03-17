@@ -1,9 +1,16 @@
 {
   "name": "fluidfont",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "FluidFont",
   "repository": "git@github.com:sugarshin/fluidfont.git",
   "main": "fluidfont.js",
+  "files": [
+    "test",
+    "fluidfont.js",
+    "fluidfont.min.js",
+    "package.json",
+    "README.md"
+  ],
   "scripts": {
     "start": "coffee -cw fluidfont.coffee",
     "test": "mochify -R spec --transform coffeeify --transform espowerify ./test/test.coffee",
