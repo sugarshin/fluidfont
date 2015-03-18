@@ -29,7 +29,7 @@ or
 </script>
 ```
 
-[View on RequireBin](//requirebin.com/embed?gist=6264704)
+[View on RequireBin](//requirebin.com/?gist=6baa13534c3ce7bf34f2)
 
 [![view on requirebin](http://requirebin.com/badge.png)](//requirebin.com/?gist=6baa13534c3ce7bf34f2)
 
