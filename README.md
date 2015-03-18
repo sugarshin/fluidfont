@@ -29,9 +29,9 @@ or
 </script>
 ```
 
-[View on RequireBin](//requirebin.com/?gist=6baa13534c3ce7bf34f2)
+[View on RequireBin](http://requirebin.com/?gist=6baa13534c3ce7bf34f2)
 
-[![view on requirebin](http://requirebin.com/badge.png)](//requirebin.com/?gist=6baa13534c3ce7bf34f2)
+[![view on requirebin](http://requirebin.com/badge.png)](http://requirebin.com/?gist=6baa13534c3ce7bf34f2)
 
 ## Config
 
