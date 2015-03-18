@@ -15,7 +15,7 @@ npm i fluidfont
 ```coffeescript
 FluidFont = require 'fluidfont'
 
-ff = new FluidFont
+new FluidFont opts
 ```
 
 or
@@ -23,7 +23,7 @@ or
 ```html
 <script src="fluidfont.js"></script>
 <script>
-  var ff = new FluidFont;
+  new FluidFont(opts);
 </script>
 ```
 
@@ -33,15 +33,18 @@ or
 
 ## Config
 
-options
+default options
 
-```coffeescript
-_defaults:
-  target: document.body
-  baseWidth: 640
-  baseSize: '1em'
-  delay: 300
-  delayType: 'debounce'# or 'throttle'
+```javascript
+var options = {
+  target: document.body, // DOM Element
+  baseWidth: 640, // Integer
+  baseSize: '1em', // String, CSS font-size value
+  delay: 300, // Integer
+  delayType: 'debounce', // String, 'debounce' or 'throttle'
+  afterResize: function() {}, // Function
+  beforeResize: function() {} // Function
+};
 ```
 
 ## api
@@ -50,17 +53,17 @@ _defaults:
 
 Resize font
 
-### `ff.unbind()`
+### `ff.off()`
 
 Unbind from resize event of window
 
-*Alias:* `ff.rmEvent()`
+*Alias:* `ff.unbind()`, `ff.rmEvent()`
 
-### `ff.events()`
+### `ff.on()`
 
 Re add resize event of window
 
-*Alias:* `ff.addEvent()`
+*Alias:* `ff.events()`, `ff.addEvent()`
 
 ## Contributing
 
@@ -75,6 +78,8 @@ Re add resize event of window
 ```shell
 npm test
 ```
+
+**Incomplete is test**
 
 ## License
 

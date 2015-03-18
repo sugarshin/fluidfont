@@ -1,4 +1,4 @@
-(function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.FluidFont = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(_dereq_,module,exports){
+!function(e){if("object"==typeof exports&&"undefined"!=typeof module)module.exports=e();else if("function"==typeof define&&define.amd)define([],e);else{var f;"undefined"!=typeof window?f=window:"undefined"!=typeof global?f=global:"undefined"!=typeof self&&(f=self),f.FluidFont=e()}}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(_dereq_,module,exports){
 /*!
   * Bean - copyright (c) Jacob Thornton 2011-2012
   * https://github.com/fat/bean
@@ -855,6 +855,10 @@ td = {
 };
 
 module.exports = FluidFont = (function() {
+  var fluidfont;
+
+  fluidfont = [];
+
   FluidFont.prototype._getRandomString = (function() {
     var chars;
     chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghiklmnopqrstuvwxyz';
@@ -877,7 +881,9 @@ module.exports = FluidFont = (function() {
     baseWidth: 640,
     baseSize: '1em',
     delay: 300,
-    delayType: 'debounce'
+    delayType: 'debounce',
+    afterResize: function() {},
+    beforeResize: function() {}
   };
 
   FluidFont.prototype._configure = function(opts) {
@@ -887,8 +893,11 @@ module.exports = FluidFont = (function() {
     this.opts.baseSize = this.opts.baseSize || this._defaults.baseSize;
     this.opts.delay = this.opts.delay || this._defaults.delay;
     this.opts.delayType = this.opts.delayType || this._defaults.delayType;
-    this._namespace = this._getRandomString(16) + +(new Date);
-    return document.getElementsByTagName('html')[0].style.fontSize = this.opts.baseSize;
+    this.opts.afterResize = this.opts.afterResize || this._defaults.afterResize;
+    this.opts.beforeResize = this.opts.beforeResize || this._defaults.beforeResize;
+    this._ns = this._getRandomString(16) + +(new Date);
+    document.getElementsByTagName('html')[0].style.fontSize = this.opts.baseSize;
+    return fluidfont.push(this);
   };
 
   FluidFont.prototype._getWindowWidth = function() {
@@ -898,16 +907,23 @@ module.exports = FluidFont = (function() {
   function FluidFont(opts) {
     this._configure(opts);
     this.resize(this._getWindowWidth());
-    this.events();
+    this.on();
   }
 
   FluidFont.prototype.resize = function(width) {
+    var _base, _base1;
+    if (typeof (_base = this.opts).afterResize === "function") {
+      _base.afterResize();
+    }
     this.el.style.fontSize = (width / this.opts.baseWidth * 100) + "%";
+    if (typeof (_base1 = this.opts).beforeResize === "function") {
+      _base1.beforeResize();
+    }
     return this;
   };
 
-  FluidFont.prototype.events = function() {
-    bean.on(window, "resize.fluidfont:" + this._namespace, td[this.opts.delayType]((function(_this) {
+  FluidFont.prototype.on = function() {
+    bean.on(window, "resize.fluidfont:" + this._ns, td[this.opts.delayType]((function(_this) {
       return function() {
         return _this.resize(_this._getWindowWidth());
       };
@@ -915,14 +931,44 @@ module.exports = FluidFont = (function() {
     return this;
   };
 
+  FluidFont.prototype.events = FluidFont.prototype.on;
+
   FluidFont.prototype.addEvent = FluidFont.prototype.events;
 
-  FluidFont.prototype.unbind = function() {
-    bean.off(window, "resize.fluidfont:" + this._namespace);
+  FluidFont.prototype.off = function() {
+    bean.off(window, "resize.fluidfont:" + this._ns);
     return this;
   };
 
+  FluidFont.prototype.unbind = FluidFont.prototype.off;
+
   FluidFont.prototype.rmEvent = FluidFont.prototype.unbind;
+
+  FluidFont.prototype.destroy = function() {
+    var ff, i, _i, _len, _results;
+    this.off();
+    _results = [];
+    for (i = _i = 0, _len = fluidfont.length; _i < _len; i = ++_i) {
+      ff = fluidfont[i];
+      if (!(ff === this)) {
+        continue;
+      }
+      ff.el.style.fontSize = '';
+      fluidfont.splice(i, 1);
+      break;
+    }
+    return _results;
+  };
+
+  FluidFont.resizeAll = function(width) {
+    var ff, _i, _len, _results;
+    _results = [];
+    for (_i = 0, _len = fluidfont.length; _i < _len; _i++) {
+      ff = fluidfont[_i];
+      _results.push(ff.resize(width));
+    }
+    return _results;
+  };
 
   return FluidFont;
 

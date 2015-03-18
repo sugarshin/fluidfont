@@ -1,6 +1,6 @@
 {
   "name": "fluidfont",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "small library for responsive font",
   "repository": "git@github.com:sugarshin/fluidfont.git",
   "main": "index.js",
@@ -16,7 +16,7 @@
     "test": "mochify -R spec --transform coffeeify --transform espowerify ./test/test.coffee",
     "compile": "coffee -c -o lib/ src/",
     "build-standalone": "browserify src/fluidfont.coffee -t coffeeify -s FluidFont | derequire > build/fluidfont.js",
-    "build-min": "uglifyjs build/fluidfont.js -cm --comments '/\\/*!/' -o build/fluidfont.min.js",
+    "build-min": "uglifyjs build/fluidfont.js -m -c warnings=false --comments '/\\/*!/' -o build/fluidfont.min.js",
     "build": "npm run compile && npm run build-standalone && npm run build-min"
   },
   "engines": {
