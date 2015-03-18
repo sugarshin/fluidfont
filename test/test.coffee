@@ -1,7 +1,7 @@
 assert = require 'power-assert'
 bean = require 'bean'
 
-FluidFont = require '../src/fluidfont'
+FluidFont = require '../src/fluidfont.coffee'
 
 # .reszie()
 describe '.reszie()', ->
@@ -10,7 +10,7 @@ describe '.reszie()', ->
     oldSize = getComputedStyle(document.body)['font-size']
     ff.resize 1024
     newSize = getComputedStyle(document.body)['font-size']
-    assert oldSize is newSize
+    assert oldSize isnt newSize
 
 # # .unbind()
 # describe '.unbind()', ->

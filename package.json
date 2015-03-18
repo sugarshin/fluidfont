@@ -13,7 +13,7 @@
   ],
   "scripts": {
     "start": "coffee -cw -o lib/ src/",
-    "test": "mochify -R spec --transform coffeeify --transform espowerify --extension='.coffee' ./test/test.coffee",
+    "test": "mochify -R spec --transform coffeeify --transform espowerify ./test/test.coffee",
     "compile": "coffee -c -o lib/ src/",
     "build-standalone": "browserify src/fluidfont.coffee -t coffeeify -s FluidFont | derequire > build/fluidfont.js",
     "build-min": "uglifyjs build/fluidfont.js -cm --comments '/\\/*!/' -o build/fluidfont.min.js",
