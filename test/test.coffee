@@ -10,7 +10,7 @@ describe '.reszie()', ->
     oldSize = getComputedStyle(document.body)['font-size']
     ff.resize 1024
     newSize = getComputedStyle(document.body)['font-size']
-    assert oldSize isnt newSize
+    assert oldSize is newSize
 
 # # .unbind()
 # describe '.unbind()', ->
