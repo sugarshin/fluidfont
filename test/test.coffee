@@ -1,7 +1,7 @@
 assert = require 'power-assert'
 bean = require 'bean'
 
-FluidFont = require '../lib/fluidfont'
+FluidFont = require '../src/fluidfont'
 
 # .reszie()
 describe '.reszie()', ->
