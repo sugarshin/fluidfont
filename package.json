@@ -1,20 +1,23 @@
 {
   "name": "fluidfont",
-  "version": "0.2.2",
-  "description": "FluidFont",
+  "version": "0.3.0",
+  "description": "small library for responsive font",
   "repository": "git@github.com:sugarshin/fluidfont.git",
-  "main": "fluidfont.js",
+  "main": "index.js",
   "files": [
+    "lib",
+    "index.js",
     "test",
-    "fluidfont.js",
     "package.json",
     "README.md"
   ],
   "scripts": {
-    "start": "coffee -cw fluidfont.coffee",
+    "start": "coffee -cw -o lib/ src/",
     "test": "mochify -R spec --transform coffeeify --transform espowerify ./test/test.coffee",
-    "build": "coffee -c fluidfont.coffee && uglifyjs fluidfont.js -cm --comments '/\\/*!/' -o fluidfont.min.js",
-    "prepublish": "npm run build"
+    "compile": "coffee -c -o lib/ src/",
+    "build-standalone": "browserify src/fluidfont.coffee -t coffeeify -s FluidFont | derequire > build/fluidfont.js",
+    "build-min": "uglifyjs build/fluidfont.js -cm --comments '/\\/*!/' -o build/fluidfont.min.js",
+    "build": "npm run compile && npm run build-standalone && npm run build-min"
   },
   "engines": {
     "node": "0.10.x"
@@ -22,9 +25,10 @@
   "author": "sugarshin",
   "license": "MIT",
   "devDependencies": {
-    "browserify": "^8.1.3",
+    "browserify": "^9.0.3",
     "coffee-script": "^1.9.0",
     "coffeeify": "^1.0.0",
+    "derequire": "^2.0.0",
     "espowerify": "^0.10.0",
     "mochify": "^2.6.1",
     "phantomjs": "^1.9.15",
@@ -32,8 +36,8 @@
     "uglify-js": "^2.4.17"
   },
   "dependencies": {
-    "browserify-shim": "^3.8.2",
-    "jquery": "^2.1.3",
-    "throttle-debounce": "^0.1.0"
+    "bean": "^1.0.15",
+    "debounce": "^1.0.0",
+    "throttleit": "^1.0.0"
   }
 }

@@ -4,7 +4,7 @@
 
 FluidFont
 
-small library for Responsive font size
+small library for responsive font
 
 ```shell
 npm i fluidfont
@@ -21,8 +21,6 @@ ff = new FluidFont
 or
 
 ```html
-<script src="jquery.js"></script>
-<script src="throttle-debounce.js"></script>
 <script src="fluidfont.js"></script>
 <script>
   var ff = new FluidFont;
@@ -39,10 +37,10 @@ options
 
 ```coffeescript
 _defaults:
-  target: 'body'
+  target: document.body
   baseWidth: 640
   baseSize: '1em'
-  delay: 400
+  delay: 300
   delayType: 'debounce'# or 'throttle'
 ```
 
