@@ -78,6 +78,7 @@ dev deps
 * browserify
 * coffee-script
 * coffeeify
+* coffeelint
 * derequire
 * espower-coffee
 * jsdom
