@@ -135,7 +135,7 @@
     "build": "npm run lint && npm run compile && npm run build-standalone && npm run build-min"
   },
   "engines": {
-    "node": "0.10.x"
+    "node": "0.12.x"
   },
   "author": "sugarshin",
   "license": "MIT",
