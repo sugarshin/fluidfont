@@ -67,13 +67,23 @@ Re add resize event of window
 
 ## Contributing
 
-[CoffeeScript](//coffeescript.org/)
+deps
 
-[Browserify](//browserify.org/)
+* bean
+* debounce
+* throttleit
 
-[Mocha](//mochajs.org/)
+dev deps
 
-[power-assert](//github.com/twada/power-assert)
+* browserify
+* coffee-script
+* coffeeify
+* derequire
+* espower-coffee
+* jsdom
+* mocha
+* power-assert
+* uglify-js
 
 ```shell
 npm test

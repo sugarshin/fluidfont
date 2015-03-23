@@ -1,6 +1,6 @@
 {
   "name": "fluidfont",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "small library for responsive font",
   "repository": "git@github.com:sugarshin/fluidfont.git",
   "main": "index.js",
@@ -11,13 +11,128 @@
     "package.json",
     "README.md"
   ],
+  "coffeelintConfig": {
+    "coffeescript_error": {
+      "level": "error"
+    },
+    "arrow_spacing": {
+      "name": "arrow_spacing",
+      "level": "warn"
+    },
+    "no_tabs": {
+      "name": "no_tabs",
+      "level": "error"
+    },
+    "no_trailing_whitespace": {
+      "name": "no_trailing_whitespace",
+      "level": "warn",
+      "allowed_in_comments": false,
+      "allowed_in_empty_lines": true
+    },
+    "max_line_length": {
+      "name": "max_line_length",
+      "value": 80,
+      "level": "warn",
+      "limitComments": true
+    },
+    "line_endings": {
+      "name": "line_endings",
+      "level": "ignore",
+      "value": "unix"
+    },
+    "no_trailing_semicolons": {
+      "name": "no_trailing_semicolons",
+      "level": "error"
+    },
+    "indentation": {
+      "name": "indentation",
+      "value": 2,
+      "level": "error"
+    },
+    "camel_case_classes": {
+      "name": "camel_case_classes",
+      "level": "error"
+    },
+    "colon_assignment_spacing": {
+      "name": "colon_assignment_spacing",
+      "level": "warn",
+      "spacing": {
+        "left": 0,
+        "right": 1
+      }
+    },
+    "no_implicit_braces": {
+      "name": "no_implicit_braces",
+      "level": "ignore",
+      "strict": true
+    },
+    "no_plusplus": {
+      "name": "no_plusplus",
+      "level": "ignore"
+    },
+    "no_throwing_strings": {
+      "name": "no_throwing_strings",
+      "level": "error"
+    },
+    "no_backticks": {
+      "name": "no_backticks",
+      "level": "error"
+    },
+    "no_implicit_parens": {
+      "name": "no_implicit_parens",
+      "level": "ignore"
+    },
+    "no_empty_param_list": {
+      "name": "no_empty_param_list",
+      "level": "warn"
+    },
+    "no_stand_alone_at": {
+      "name": "no_stand_alone_at",
+      "level": "ignore"
+    },
+    "space_operators": {
+      "name": "space_operators",
+      "level": "warn"
+    },
+    "duplicate_key": {
+      "name": "duplicate_key",
+      "level": "error"
+    },
+    "empty_constructor_needs_parens": {
+      "name": "empty_constructor_needs_parens",
+      "level": "ignore"
+    },
+    "cyclomatic_complexity": {
+      "name": "cyclomatic_complexity",
+      "value": 10,
+      "level": "ignore"
+    },
+    "newlines_after_classes": {
+      "name": "newlines_after_classes",
+      "value": 3,
+      "level": "ignore"
+    },
+    "no_unnecessary_fat_arrows": {
+      "name": "no_unnecessary_fat_arrows",
+      "level": "warn"
+    },
+    "missing_fat_arrows": {
+      "name": "missing_fat_arrows",
+      "level": "ignore"
+    },
+    "non_empty_constructor_needs_parens": {
+      "name": "non_empty_constructor_needs_parens",
+      "level": "ignore"
+    }
+  },
   "scripts": {
     "start": "coffee -cw -o lib/ src/",
-    "test": "mochify -R spec --transform coffeeify --transform espowerify ./test/test.coffee",
+    "lint": "coffeelint ./src/fluidfont.coffee",
+    "test": "mocha --require espower-coffee/guess test/**/*.coffee",
     "compile": "coffee -c -o lib/ src/",
     "build-standalone": "browserify src/fluidfont.coffee -t coffeeify -s FluidFont | derequire > build/fluidfont.js",
     "build-min": "uglifyjs build/fluidfont.js -m -c warnings=false --comments '/\\/*!/' -o build/fluidfont.min.js",
-    "build": "npm run compile && npm run build-standalone && npm run build-min"
+    "build": "npm run lint && npm run compile && npm run build-standalone && npm run build-min"
   },
   "engines": {
     "node": "0.10.x"
@@ -28,11 +143,12 @@
     "browserify": "^9.0.3",
     "coffee-script": "^1.9.0",
     "coffeeify": "^1.0.0",
+    "coffeelint": "^1.9.2",
     "derequire": "^2.0.0",
-    "espowerify": "^0.10.0",
-    "mochify": "^2.6.1",
-    "phantomjs": "^1.9.15",
-    "power-assert": "^0.10.1",
+    "espower-coffee": "^0.10.0",
+    "jsdom": "^4.0.4",
+    "mocha": "^2.2.1",
+    "power-assert": "^0.10.2",
     "uglify-js": "^2.4.17"
   },
   "dependencies": {

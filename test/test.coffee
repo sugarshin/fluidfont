@@ -1,13 +1,18 @@
+jsdom = require('jsdom').jsdom
+global.document = jsdom '<html><body></body></html>'
+global.window = document.defaultView
+global.navigator = window.navigator
+
 assert = require 'power-assert'
 bean = require 'bean'
 
 FluidFont = require '../src/fluidfont.coffee'
 
-# .reszie()
+# FluidFont
 describe '.reszie()', ->
   it 'フォントがリサイズされること', ->
     ff = new FluidFont
-    oldSize = getComputedStyle(document.body)['font-size']
-    ff.resize 1024
-    newSize = getComputedStyle(document.body)['font-size']
+    oldSize = window.getComputedStyle(document.body)['font-size']
+    ff.resize 960
+    newSize = window.getComputedStyle(document.body)['font-size']
     assert oldSize isnt newSize
